@@ -2,7 +2,6 @@ import * as SQLite from "expo-sqlite";
 import * as React from "react";
 import {
   Alert,
-  Dimensions,
   Modal,
   StyleSheet,
   Text,
@@ -14,9 +13,6 @@ import { PrivacyPolicy } from "./PrivacyPolicy";
 import { Terms } from "./Terms";
 
 const { useState } = React;
-
-const WINDOW_HEIGHT = Dimensions.get("screen").height;
-const WINDOW_WIDTH = Dimensions.get("screen").width;
 
 const db = SQLite.openDatabase("db.db");
 
@@ -41,6 +37,7 @@ const Settings = () => {
     container,
     group,
     label,
+    inner,
     value,
     delete_button,
     delete_label,
@@ -59,88 +56,93 @@ const Settings = () => {
   } = styles;
   return (
     <View style={container}>
-      <View style={group}>
-        <Text style={label}>Privacy Policy</Text>
-        <TouchableOpacity
-          onPress={() => setShowPrivacy(true)}
-          style={open_button}
-        >
-          <Text style={open_label}>Open Privacy Policy</Text>
-        </TouchableOpacity>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={showPrivacy}
-          onRequestClose={() => {}}
-        >
-          <PrivacyPolicy />
+      <View style={inner}>
+        <View style={group}>
+          <Text style={label}>Privacy Policy</Text>
           <TouchableOpacity
-            onPress={() => setShowPrivacy(false)}
-            style={close_button}
+            onPress={() => setShowPrivacy(true)}
+            style={open_button}
           >
-            <Text style={close_label}>Close</Text>
+            <Text style={open_label}>Open Privacy Policy</Text>
           </TouchableOpacity>
-        </Modal>
-      </View>
-      <View style={group}>
-        <Text style={label}>Privacy Policy</Text>
-        <TouchableOpacity
-          onPress={() => setShowTerms(true)}
-          style={open_button}
-        >
-          <Text style={open_label}>Open Terms and Conditions</Text>
-        </TouchableOpacity>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={showTerms}
-          onRequestClose={() => {}}
-        >
-          <Terms />
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={showPrivacy}
+            onRequestClose={() => {}}
+          >
+            <PrivacyPolicy />
+            <TouchableOpacity
+              onPress={() => setShowPrivacy(false)}
+              style={close_button}
+            >
+              <Text style={close_label}>Close</Text>
+            </TouchableOpacity>
+          </Modal>
+        </View>
+        <View style={group}>
+          <Text style={label}>Privacy Policy</Text>
           <TouchableOpacity
-            onPress={() => setShowTerms(false)}
-            style={close_button}
+            onPress={() => setShowTerms(true)}
+            style={open_button}
           >
-            <Text style={close_label}>Close</Text>
+            <Text style={open_label}>Open Terms and Conditions</Text>
           </TouchableOpacity>
-        </Modal>
-      </View>
-      <View style={group}>
-        <Text style={label}>Reset Database</Text>
-        <TouchableOpacity
-          onPress={() => setShowModal(true)}
-          style={delete_button}
-        >
-          <Text style={delete_label}>Clear Database</Text>
-        </TouchableOpacity>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={showModal}
-          onRequestClose={() => {
-            onCancel();
-            Alert.alert("Cancelled");
-          }}
-        >
-          <View style={modal_container}>
-            <Text style={modal_label}>Confirm Deletion?</Text>
-            <View style={{ padding: 5 }} />
-            <View style={modal_buttons}>
-              <TouchableOpacity onPress={() => onCancel()} style={modal_cancel}>
-                <Text style={modal_cancel_label}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => onConfirm()}
-                style={modal_confirm}
-              >
-                <Text style={modal_confirm_label}>Confirm</Text>
-              </TouchableOpacity>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={showTerms}
+            onRequestClose={() => {}}
+          >
+            <Terms />
+            <TouchableOpacity
+              onPress={() => setShowTerms(false)}
+              style={close_button}
+            >
+              <Text style={close_label}>Close</Text>
+            </TouchableOpacity>
+          </Modal>
+        </View>
+        <View style={group}>
+          <Text style={label}>Reset Database</Text>
+          <TouchableOpacity
+            onPress={() => setShowModal(true)}
+            style={delete_button}
+          >
+            <Text style={delete_label}>Clear Database</Text>
+          </TouchableOpacity>
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={showModal}
+            onRequestClose={() => {
+              onCancel();
+              Alert.alert("Cancelled");
+            }}
+          >
+            <View style={modal_container}>
+              <Text style={modal_label}>Confirm Deletion?</Text>
+              <View style={{ padding: 5 }} />
+              <View style={modal_buttons}>
+                <TouchableOpacity
+                  onPress={() => onCancel()}
+                  style={modal_cancel}
+                >
+                  <Text style={modal_cancel_label}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => onConfirm()}
+                  style={modal_confirm}
+                >
+                  <Text style={modal_confirm_label}>Confirm</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+        </View>
       </View>
       <View style={footer}>
         <Text style={{ textAlign: "center" }}>
@@ -234,13 +236,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     padding: 10,
+    zIndex: 1,
+    backgroundColor: "#fff"
   },
   footer: {
-    position: "absolute",
-    height: 40,
-    left: 0,
-    top: WINDOW_HEIGHT * 0.85,
-    width: WINDOW_WIDTH,
+    flex: 0.01,
+  },
+  inner: {
+    flex: 0.99,
   },
 });
 
