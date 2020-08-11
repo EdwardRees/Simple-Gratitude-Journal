@@ -2,7 +2,8 @@
   "expo": {
     "name": "Simple Gratitude Journal",
     "slug": "Gratitude-Journal",
-    "version": "1.0.0",
+    "description": "A simple gratitude journal created to help others become more mindful about the life they life.",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -10,17 +11,21 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "githubUrl": "https://github.com/EdwardRees/Simple-Gratitude-Journal",
+    "userInterfaceStyle": "automatic",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "android": {
+      "package": "info.edwardrees.simplegratitudejournal",
+      "useNextNotificationsApi": true
     }
   }
 }

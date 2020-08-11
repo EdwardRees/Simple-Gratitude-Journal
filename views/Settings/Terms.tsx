@@ -1,8 +1,15 @@
 import * as React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 
+import { useColorScheme } from "react-native-appearance";
+
 const Terms = () => {
-  const { container, heading, text } = styles;
+  const colorScheme = useColorScheme();
+  const container =
+    colorScheme === "light" ? styles.light_container : styles.dark_container;
+  const heading =
+    colorScheme === "light" ? styles.light_heading : styles.dark_heading;
+  const text = colorScheme === "light" ? styles.light_text : styles.dark_text;
   return (
     <ScrollView style={container} contentContainerStyle={{ paddingBottom: 20 }}>
       <Text style={heading}>Terms & Conditions</Text>
@@ -121,9 +128,20 @@ const Terms = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
-  heading: { fontSize: 18, fontWeight: "bold" },
-  text: { fontSize: 18, lineHeight: 20 },
+  light_container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#f8f8f8",
+  },
+  dark_container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#000",
+  },
+  light_heading: { fontSize: 18, fontWeight: "bold", color: "#000" },
+  dark_heading: { fontSize: 18, fontWeight: "bold", color: "#f8f8f8" },
+  light_text: { fontSize: 18, lineHeight: 20, color: "#000" },
+  dark_text: { fontSize: 18, lineHeight: 20, color: "#f8f8f8" },
 });
 
 export { Terms };

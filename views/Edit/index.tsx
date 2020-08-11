@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 const { useState } = React;
+import { useColorScheme } from "react-native-appearance";
 const db = SQLite.openDatabase("db.db");
 
 const Edit = (props: any) => {
@@ -32,6 +33,7 @@ const Edit = (props: any) => {
     fifthDesc,
   } = data;
 
+  const colorScheme = useColorScheme();
   const [newFirst, setFirst] = useState(first);
   const [newFirstDesc, setFirstDesc] = useState(firstDesc);
   const [newSecond, setSecond] = useState(second);
@@ -103,7 +105,18 @@ const Edit = (props: any) => {
     return true;
   };
 
-  const { container, button, label, input, formGroup } = styles;
+
+  const container =
+    colorScheme === "light" ? styles.light_container : styles.dark_container;
+
+  const button =
+    colorScheme === "light" ? styles.light_button : styles.dark_button;
+
+  const label =
+    colorScheme === "light" ? styles.light_label : styles.dark_label;
+  const input =
+    colorScheme === "light" ? styles.light_input : styles.dark_input;
+  const { formGroup } = styles;
   return (
     <ScrollView style={container}>
       <View style={formGroup}>
@@ -218,31 +231,51 @@ const Edit = (props: any) => {
           }
         }}
       >
-        <Text style={{ textAlign: "center", fontSize: 16, color: "#3C6074" }}>
+        <Text style={{ textAlign: "center", fontSize: 16, color: colorScheme === "light" ? "#3C6074" : "#62C3E8" }}>
           Save
         </Text>
       </TouchableOpacity>
     </ScrollView>
   );
 };
-
 const styles = StyleSheet.create({
-  container: {
+  light_container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingHorizontal: 10,
+    backgroundColor: "#f8f8f8",
   },
-  label: {
+  dark_container: {
+    flex: 1,
+    paddingHorizontal: 10,
+    backgroundColor: "#000",
+  },
+  light_label: {
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 16,
+    color: "#000",
   },
-  input: {
+  dark_label: {
+    textAlign: "center",
+    textAlignVertical: "center",
+    fontSize: 16,
+    color: "#f8f8f8",
+  },
+  light_input: {
     textAlign: "center",
     textAlignVertical: "center",
     width: 150,
     height: 50,
     fontSize: 16,
+    color: "#000",
+  },
+  dark_input: {
+    textAlign: "center",
+    textAlignVertical: "center",
+    width: 150,
+    height: 50,
+    fontSize: 16,
+    color: "#f8f8f8",
   },
   formGroup: {
     padding: 10,
@@ -250,7 +283,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  button: {
+  light_button: {
     color: "#3C6074",
     borderRadius: 10,
     borderTopWidth: 2,
@@ -258,6 +291,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderRightWidth: 2,
     borderColor: "#3C6074",
+    padding: 10,
+  },
+  dark_button: {
+    color: "#62C3E8",
+    borderRadius: 10,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderBottomWidth: 2,
+    borderRightWidth: 2,
+    borderColor: "#62C3E8",
     padding: 10,
   },
 });

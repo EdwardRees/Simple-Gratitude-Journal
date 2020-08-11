@@ -1,14 +1,51 @@
 import * as SQLite from "expo-sqlite";
 import * as React from "react";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from "react-native";
+import { useColorScheme } from "react-native-appearance";
 
 const { useState, useEffect } = React;
 
 const db = SQLite.openDatabase("db.db");
 
 const Home = (props: any) => {
+  const colorScheme = useColorScheme();
   const [entries, setEntries] = useState([]);
   const [welcome, showWelcome] = useState(false);
+
+  const container =
+    colorScheme === "light" ? styles.light_container : styles.dark_container;
+  const text = colorScheme === "light" ? styles.light_text : styles.dark_text;
+  const button =
+    colorScheme === "light" ? styles.light_button : styles.dark_button;
+  const button_text =
+    colorScheme === "light"
+      ? styles.light_button_text
+      : styles.dark_button_text;
+  const modal_container =
+    colorScheme === "light"
+      ? styles.light_modal_container
+      : styles.dark_modal_container;
+  const modal_text =
+    colorScheme === "light" ? styles.light_modal_text : styles.dark_modal_text;
+  const modal_heading =
+    colorScheme === "light"
+      ? styles.light_modal_heading
+      : styles.dark_modal_heading;
+  const modal_button =
+    colorScheme === "light"
+      ? styles.light_modal_button
+      : styles.dark_modal_button;
+  const modal_button_label =
+    colorScheme === "light"
+      ? styles.light_modal_button_label
+      : styles.dark_modal_button_label;
 
   const { navigation } = props;
 
@@ -24,21 +61,12 @@ const Home = (props: any) => {
     return () => clearInterval(interval);
   });
 
-  const {
-    container,
-    button,
-    button_text,
-    modal_container,
-    modal_text,
-    modal_heading,
-    modal_button,
-    modal_button_label,
-  } = styles;
   const renderData = () => {
     if (entries.length === 0) {
+      // const [styles] = useTheme(themedStyles);
       return (
         <View style={container}>
-          <Text>No Data to Show</Text>
+          <Text style={text}>No Journal Entries Made Yet</Text>
           <View style={{ padding: 5 }} />
           <TouchableOpacity onPress={() => showWelcome(true)} style={button}>
             <Text style={button_text}>Help</Text>
@@ -97,22 +125,14 @@ const Home = (props: any) => {
       );
     } else {
       return (
-        <View style={{ flex: 1, backgroundColor: "#fff" }}>
+        <ScrollView
+          style={{
+            flex: 1,
+            backgroundColor: colorScheme === "light" ? "#f8f8f8" : "#000",
+          }}
+        >
           {entries.map((entry) => {
-            const {
-              id,
-              postdate,
-              first,
-              firstDesc,
-              second,
-              secondDesc,
-              third,
-              thirdDesc,
-              fourth,
-              fourthDesc,
-              fifth,
-              fifthDesc,
-            } = entry;
+            const { id, postdate } = entry;
             return (
               <View
                 key={id}
@@ -123,23 +143,23 @@ const Home = (props: any) => {
                   padding: 10,
                 }}
               >
-                <Text style={styles.text}>{postdate}</Text>
+                <Text style={text}>{postdate}</Text>
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate("View", { data: entry, id })
                   }
                 >
-                  <Text style={styles.text}>View</Text>
+                  <Text style={text}>View</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("Edit", { data: entry })}
                 >
-                  <Text style={styles.text}>Edit</Text>
+                  <Text style={text}>Edit</Text>
                 </TouchableOpacity>
               </View>
             );
           })}
-        </View>
+        </ScrollView>
       );
     }
   };
@@ -148,53 +168,107 @@ const Home = (props: any) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  light_container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f8f8",
+    color: "#000",
   },
-  button: {
+  dark_container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000",
+    color: "#f8f8f8",
+  },
+  light_button: {
     padding: 10,
     borderRadius: 10,
     borderWidth: 2,
     borderColor: "#3C6074",
   },
-  button_text: {
+  dark_button: {
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#62C3E8",
+  },
+  light_button_text: {
     textAlign: "center",
     fontSize: 16,
     color: "#3C6074",
   },
-  text: {
-    fontSize: 18,
+  dark_button_text: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "#62C3E8",
   },
-  modal_container: {
+  dark_text: {
+    fontSize: 18,
+    color: "#f8f8f8",
+  },
+  light_text: {
+    fontSize: 18,
+    color: "#000",
+  },
+  light_modal_container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f8f8",
     alignItems: "center",
     padding: 20,
   },
-  modal_heading: {
+  dark_modal_container: {
+    flex: 1,
+    backgroundColor: "#000",
+    alignItems: "center",
+    padding: 20,
+  },
+  light_modal_heading: {
     fontSize: 18,
     textAlign: "center",
     paddingVertical: 5,
   },
-  modal_text: {
+  dark_modal_heading: {
+    fontSize: 18,
+    textAlign: "center",
+    paddingVertical: 5,
+    color: "#f8f8f8",
+  },
+  light_modal_text: {
     fontSize: 16,
     textAlign: "center",
     paddingVertical: 5,
     lineHeight: 25,
   },
-  modal_button: {
+  dark_modal_text: {
+    fontSize: 16,
+    textAlign: "center",
+    paddingVertical: 5,
+    lineHeight: 25,
+    color: "#f8f8f8",
+  },
+  light_modal_button: {
     borderWidth: 2,
     borderRadius: 10,
     borderColor: "#3c6074",
     padding: 10,
   },
-  modal_button_label: {
+  light_modal_button_label: {
     fontSize: 16,
     textAlign: "center",
     color: "#3C6074",
+  },
+  dark_modal_button: {
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: "#62C3E8",
+    padding: 10,
+  },
+  dark_modal_button_label: {
+    fontSize: 16,
+    textAlign: "center",
+    color: "#62C3E8",
   },
 });
 

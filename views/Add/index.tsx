@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useColorScheme } from "react-native-appearance";
 
 const { useState } = React;
 
@@ -26,6 +27,8 @@ const Add = (props: any) => {
   const [fourthDesc, setFourthDesc] = useState("");
   const [fifth, setFifth] = useState("");
   const [fifthDesc, setFifthDesc] = useState("");
+
+  const colorScheme = useColorScheme();
 
   const add = () => {
     if (
@@ -67,7 +70,17 @@ const Add = (props: any) => {
     return true;
   };
 
-  const { container, button, label, input, formGroup } = styles;
+  const container =
+    colorScheme === "light" ? styles.light_container : styles.dark_container;
+
+  const button =
+    colorScheme === "light" ? styles.light_button : styles.dark_button;
+
+  const label =
+    colorScheme === "light" ? styles.light_label : styles.dark_label;
+  const input =
+    colorScheme === "light" ? styles.light_input : styles.dark_input;
+  const { formGroup } = styles;
   return (
     <ScrollView style={container}>
       <View style={formGroup}>
@@ -75,7 +88,7 @@ const Add = (props: any) => {
         <TextInput
           style={input}
           onChangeText={(val) => setFirst(val)}
-          placeholder={"First value"}
+          placeholder={"Placeholder: Friends"}
           value={first}
           multiline
         />
@@ -85,7 +98,7 @@ const Add = (props: any) => {
         <TextInput
           style={input}
           onChangeText={(val) => setFirstDesc(val)}
-          placeholder={"First value description *Optional"}
+          placeholder={"Placeholder: My friends show me who I can be"}
           value={firstDesc}
           multiline
         />
@@ -95,7 +108,7 @@ const Add = (props: any) => {
         <TextInput
           style={input}
           onChangeText={(val) => setSecond(val)}
-          placeholder={"Second value"}
+          placeholder={"Placeholder: Family"}
           multiline
           value={second}
         />
@@ -106,7 +119,7 @@ const Add = (props: any) => {
           style={input}
           onChangeText={(val) => setSecondDesc(val)}
           multiline
-          placeholder={"Second value description *Optional"}
+          placeholder={"Placeholder: They support me and care for me"}
           value={secondDesc}
         />
       </View>
@@ -116,7 +129,7 @@ const Add = (props: any) => {
           style={input}
           onChangeText={(val) => setThird(val)}
           multiline
-          placeholder={"Third value"}
+          placeholder={"Placeholder: Health"}
           value={third}
         />
       </View>
@@ -126,7 +139,7 @@ const Add = (props: any) => {
           style={input}
           multiline
           onChangeText={(val) => setThirdDesc(val)}
-          placeholder={"Third value description *Optional"}
+          placeholder={"Placeholder: I am healthy"}
           value={thirdDesc}
         />
       </View>
@@ -136,7 +149,7 @@ const Add = (props: any) => {
           multiline
           style={input}
           onChangeText={(val) => setFourth(val)}
-          placeholder={"Fourth value"}
+          placeholder={"Placeholder: Social Media"}
           value={fourth}
         />
       </View>
@@ -146,7 +159,7 @@ const Add = (props: any) => {
           style={input}
           onChangeText={(val) => setFourthDesc(val)}
           multiline
-          placeholder={"Fourth value description *Optional"}
+          placeholder={"Placeholder: I can stay connected to others no matter where they are"}
           value={fourthDesc}
         />
       </View>
@@ -155,7 +168,7 @@ const Add = (props: any) => {
         <TextInput
           style={input}
           onChangeText={(val) => setFifth(val)}
-          placeholder={"Fifth value"}
+          placeholder={"Placeholder: Internet"}
           multiline
           value={fifth}
         />
@@ -165,7 +178,7 @@ const Add = (props: any) => {
         <TextInput
           style={input}
           onChangeText={(val) => setFifthDesc(val)}
-          placeholder={"Fifth value description *Optional"}
+          placeholder={"Placeholder: I can keep up to date with everything happening around the world"}
           multiline
           value={fifthDesc}
         />
@@ -182,7 +195,7 @@ const Add = (props: any) => {
           }
         }}
       >
-        <Text style={{ textAlign: "center", fontSize: 16, color: "#3C6074" }}>
+        <Text style={{ textAlign: "center", fontSize: 16, color: colorScheme=== "light" ? "#3C6074" : "#62C3E8" }}>
           Add
         </Text>
       </TouchableOpacity>
@@ -191,22 +204,43 @@ const Add = (props: any) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  light_container: {
     flex: 1,
     paddingHorizontal: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f8f8",
   },
-  label: {
+  dark_container: {
+    flex: 1,
+    paddingHorizontal: 10,
+    backgroundColor: "#000",
+  },
+  light_label: {
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 16,
+    color: "#000",
   },
-  input: {
+  dark_label: {
+    textAlign: "center",
+    textAlignVertical: "center",
+    fontSize: 16,
+    color: "#f8f8f8",
+  },
+  light_input: {
     textAlign: "center",
     textAlignVertical: "center",
     width: 150,
     height: 50,
     fontSize: 16,
+    color: "#000",
+  },
+  dark_input: {
+    textAlign: "center",
+    textAlignVertical: "center",
+    width: 150,
+    height: 50,
+    fontSize: 16,
+    color: "#f8f8f8",
   },
   formGroup: {
     padding: 10,
@@ -214,7 +248,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  button: {
+  light_button: {
     color: "#3C6074",
     borderRadius: 10,
     borderTopWidth: 2,
@@ -222,6 +256,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderRightWidth: 2,
     borderColor: "#3C6074",
+    padding: 10,
+  },
+  dark_button: {
+    color: "#62C3E8",
+    borderRadius: 10,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderBottomWidth: 2,
+    borderRightWidth: 2,
+    borderColor: "#62C3E8",
     padding: 10,
   },
 });

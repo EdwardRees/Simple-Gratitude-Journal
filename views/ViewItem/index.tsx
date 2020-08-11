@@ -10,10 +10,13 @@ import {
   View,
 } from "react-native";
 
+import { useColorScheme } from "react-native-appearance";
+
 const { useState } = React;
 const db = SQLite.openDatabase("db.db");
 
 const ViewItem = (props: any) => {
+  const colorScheme = useColorScheme();
   const [modalVisible, setModalVisibility] = useState(false);
 
   const { navigation, route } = props;
@@ -52,24 +55,25 @@ const ViewItem = (props: any) => {
     Alert.alert("Item Deleted!");
     navigation.popToTop();
   };
+  const container = colorScheme === "light" ? styles.light_container : styles.dark_container;
+  const heading = colorScheme === "light" ? styles.light_heading : styles.dark_heading;
+  const value = colorScheme === "light" ? styles.light_value : styles.dark_value;
+  const description = colorScheme === "light" ? styles.light_description : styles.dark_description;
+  const button = colorScheme === "light" ? styles.light_button : styles.dark_button;
+  const label = colorScheme === "light" ? styles.light_button : styles.dark_label;
+  const delete_button = colorScheme === "light" ? styles.light_delete_button : styles.dark_delete_button;
+  const delete_label = colorScheme === "light" ? styles.light_delete_button : styles.dark_delete_label;
+
+  const modal_container = colorScheme === "light" ? styles.light_modal_container : styles.dark_modal_container;
+  const modal_label = colorScheme === "light" ? styles.light_modal_label : styles.dark_modal_label;
+  const modal_confirm = colorScheme === "light" ? styles.light_modal_confirm : styles.dark_modal_confirm;
+  const modal_cancel = colorScheme === "light" ? styles.light_modal_cancel : styles.dark_modal_cancel;
+  const modal_confirm_label = colorScheme === "light" ? styles.light_modal_confirm_label : styles.dark_modal_confirm_label;
+  const modal_cancel_label = colorScheme === "light" ? styles.light_modal_cancel_label : styles.dark_modal_cancel_label;
 
   const {
-    container,
-    heading,
-    value,
-    description,
     group,
-    button,
-    label,
-    delete_button,
-    delete_label,
-    modal_container,
-    modal_label,
     modal_buttons,
-    modal_confirm,
-    modal_cancel,
-    modal_confirm_label,
-    modal_cancel_label,
   } = styles;
 
   return (
@@ -136,13 +140,23 @@ const ViewItem = (props: any) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  light_container: {
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f8f8",
   },
-  heading: {
+  dark_container: {
+    padding: 10,
+    backgroundColor: "#000",
+  },
+  light_heading: {
     fontSize: 18,
     textAlign: "center",
+    color: "#000"
+  },
+  dark_heading: {
+    fontSize: 18,
+    textAlign: "center",
+    color: "#f8f8f8"
   },
   group: {
     paddingHorizontal: 20,
@@ -150,69 +164,135 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  value: {
+  light_value: {
     fontSize: 16,
+    color: "#000"
   },
-  description: {
+  dark_value: {
+    fontSize: 16,
+    color: "#f8f8f8"
+  },
+  light_description: {
     fontSize: 16,
     textAlign: "center",
     width: "50%",
+    color: "#000"
   },
-  button: {
+  dark_description: {
+    fontSize: 16,
+    textAlign: "center",
+    width: "50%",
+    color: "#f8f8f8"
+  },
+  light_button: {
     borderColor: "#3C6074",
     borderWidth: 2,
     borderRadius: 10,
     padding: 10,
   },
-  label: {
+  dark_button: {
+    borderColor: "#62C3E8",
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 10,
+  },
+  light_label: {
     textAlign: "center",
     fontSize: 16,
     color: "#3C6074",
   },
-  delete_label: {
+  dark_label: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "#62C3E8",
+  },
+  light_delete_label: {
     textAlign: "center",
     fontSize: 16,
     color: "#9e2121",
   },
-  delete_button: {
+  dark_delete_label: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "#f36f6f",
+  },
+  light_delete_button: {
     borderColor: "#9e2121",
     borderWidth: 2,
     borderRadius: 10,
     padding: 10,
   },
-  modal_container: {
-    backgroundColor: "#fff",
+  dark_delete_button: {
+    borderColor: "#f36f6f",
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 10,
+  },
+  light_modal_container: {
+    backgroundColor: "#f8f8f8",
     flex: 1,
     padding: 20,
     justifyContent: "center",
     alignContent: "center",
   },
-  modal_label: {
+  dark_modal_container: {
+    backgroundColor: "#000",
+    flex: 1,
+    padding: 20,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  light_modal_label: {
     textAlign: "center",
     fontSize: 18,
     padding: 10,
+    color: "#000"
+  },
+  dark_modal_label: {
+    textAlign: "center",
+    fontSize: 18,
+    padding: 10,
+    color: "#f8f8f8"
   },
   modal_buttons: {
     flexDirection: "row",
     justifyContent: "space-around",
   },
-  modal_confirm: {
+  light_modal_confirm: {
     borderColor: "#219e43",
     borderWidth: 2,
     borderRadius: 10,
     padding: 10,
   },
-  modal_cancel: {
+  dark_modal_confirm: {
+    borderColor: "#5df185",
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 10,
+  },
+  light_modal_cancel: {
     borderColor: "#9e2121",
     borderWidth: 2,
     borderRadius: 10,
     padding: 10,
   },
-  modal_confirm_label: {
+  dark_modal_cancel: {
+    borderColor: "#f36f6f",
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 10,
+  },
+  light_modal_confirm_label: {
     color: "#219e43",
   },
-  modal_cancel_label: {
+  dark_modal_confirm_label: {
+    color: "#5df185",
+  },
+  light_modal_cancel_label: {
     color: "#9e2121",
+  },
+  dark_modal_cancel_label: {
+    color: "#f36f6f",
   },
 });
 
