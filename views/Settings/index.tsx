@@ -44,7 +44,11 @@ const Settings = () => {
     Alert.alert("Cleared Affirmations!");
     setShowAffirmationModal(false);
     db.transaction((tx) => {
-      tx.executeSql(`delete from affirmations`);
+      tx.executeSql(`drop table affirmations`);
+      tx.executeSql(
+        "create table if not exists affirmations (id integer primary key not null, postdate text, loveMost text, sadManage text, first text, second text, third text, betterSkill text, pleasantlySurprised text, lookingAhead text, appreciated text, selfThank text, downReminder text);"
+      );
+      // tx.executeSql(`delete from affirmations`);
     });
   };
 
@@ -232,7 +236,7 @@ const Settings = () => {
       </View>
       <View style={footer}>
         <Text style={{ textAlign: "center", color: colorScheme === "light" ? "#000" : "#f8f8f8" }}>
-          Simple Gratitude Journal v2.0.0
+          Simple Gratitude Journal v2.1.0
         </Text>
       </View>
     </View>

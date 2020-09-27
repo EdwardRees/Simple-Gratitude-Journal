@@ -14,7 +14,7 @@ import { useColorScheme } from "react-native-appearance";
 const { useState, useEffect } = React;
 const db = SQLite.openDatabase("db.db");
 
-const SetAffirmations = (props: any) => {
+const AddAffirmations = (props: any) => {
   const { navigation } = props;
   const [loveMost, setLoveMost] = useState("");
   const [sadManage, setSadManage] = useState("");
@@ -30,30 +30,7 @@ const SetAffirmations = (props: any) => {
 
   const colorScheme = useColorScheme();
 
-  useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql("select * from affirmations", [], (_, res) => {
-        let rows: any = res.rows;
-        let vals: any = rows["_array"];
-        if(vals === undefined || vals.length === 0){
-          return;
-        }
-        setLoveMost(vals[0]["loveMost"]);
-        setSadManage(vals[0]["sadManage"]);
-        setFirst(vals[0]["first"]);
-        setSecond(vals[0]["second"]);
-        setThird(vals[0]["third"]);
-        setBetterSkill(vals[0]["betterSkill"]);
-        setPleasantlySurprised(vals[0]["pleasantlySurprised"]);
-        setLookingAhead(vals[0]["lookingAhead"]);
-        setAppreciated(vals[0]["appreciated"]);
-        setSelfThank(vals[0]["selfThank"]);
-        setDownReminder(vals[0]["downReminder"]);
-      });
-    });
-  }, []);
-
-  const set = () => {
+  const add = () => {
     if (
       loveMost === null ||
       loveMost === "" ||
@@ -83,10 +60,10 @@ const SetAffirmations = (props: any) => {
 
     db.transaction(
       (tx) => {
-        tx.executeSql("delete from affirmations");
         tx.executeSql(
-          "insert into affirmations (loveMost, sadManage, first, second, third, betterSkill, pleasantlySurprised, lookingAhead, appreciated, selfThank, downReminder) values (?, ?,  ?, ?, ?, ?, ?,?, ?,?, ?);",
+          "insert into affirmations (postdate, loveMost, sadManage, first, second, third, betterSkill, pleasantlySurprised, lookingAhead, appreciated, selfThank, downReminder) values (?, ?, ?,  ?, ?, ?, ?, ?,?, ?,?, ?);",
           [
+            new Date().toDateString(),
             loveMost,
             sadManage,
             first,
@@ -102,10 +79,10 @@ const SetAffirmations = (props: any) => {
         );
       },
       (e) => {
-        console.log(`Failed Set: ${e.message}`);
+        console.error(`Failed addition: ${e.message}`);
       },
       () => {
-        console.log("Successful Set");
+        console.info("Successful addition");
       }
     );
     return true;
@@ -247,10 +224,10 @@ const SetAffirmations = (props: any) => {
       <TouchableOpacity
         style={button}
         onPress={() => {
-          if (set()) {
+          if (add()) {
             navigation.popToTop();
           } else {
-            Alert.alert("Set unsuccessful! Make sure all fields have values!");
+            Alert.alert("Add unsuccessful! Make sure all fields have values!");
           }
         }}
       >
@@ -261,7 +238,7 @@ const SetAffirmations = (props: any) => {
             color: colorScheme === "light" ? "#3C6074" : "#62C3E8",
           }}
         >
-          Set
+          Add
         </Text>
       </TouchableOpacity>
     </ScrollView>
@@ -319,4 +296,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { SetAffirmations };
+export { AddAffirmations };

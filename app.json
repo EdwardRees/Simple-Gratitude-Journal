@@ -3,7 +3,7 @@
     "name": "Simple Gratitude Journal",
     "slug": "Gratitude-Journal",
     "description": "A simple gratitude journal created to help others become more mindful about the life they life.",
-    "version": "1.2.0",
+    "version": "2.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

@@ -55,26 +55,55 @@ const ViewItem = (props: any) => {
     Alert.alert("Item Deleted!");
     navigation.popToTop();
   };
-  const container = colorScheme === "light" ? styles.light_container : styles.dark_container;
-  const heading = colorScheme === "light" ? styles.light_heading : styles.dark_heading;
-  const value = colorScheme === "light" ? styles.light_value : styles.dark_value;
-  const description = colorScheme === "light" ? styles.light_description : styles.dark_description;
-  const button = colorScheme === "light" ? styles.light_button : styles.dark_button;
-  const label = colorScheme === "light" ? styles.light_button : styles.dark_label;
-  const delete_button = colorScheme === "light" ? styles.light_delete_button : styles.dark_delete_button;
-  const delete_label = colorScheme === "light" ? styles.light_delete_button : styles.dark_delete_label;
+  const container =
+    colorScheme === "light" ? styles.light_container : styles.dark_container;
+  const heading =
+    colorScheme === "light" ? styles.light_heading : styles.dark_heading;
+  const value =
+    colorScheme === "light" ? styles.light_value : styles.dark_value;
+  const description =
+    colorScheme === "light"
+      ? styles.light_description
+      : styles.dark_description;
+  const button =
+    colorScheme === "light" ? styles.light_button : styles.dark_button;
+  const label =
+    colorScheme === "light" ? styles.light_button : styles.dark_label;
+  const delete_button =
+    colorScheme === "light"
+      ? styles.light_delete_button
+      : styles.dark_delete_button;
+  const delete_label =
+    colorScheme === "light"
+      ? styles.light_delete_button
+      : styles.dark_delete_label;
 
-  const modal_container = colorScheme === "light" ? styles.light_modal_container : styles.dark_modal_container;
-  const modal_label = colorScheme === "light" ? styles.light_modal_label : styles.dark_modal_label;
-  const modal_confirm = colorScheme === "light" ? styles.light_modal_confirm : styles.dark_modal_confirm;
-  const modal_cancel = colorScheme === "light" ? styles.light_modal_cancel : styles.dark_modal_cancel;
-  const modal_confirm_label = colorScheme === "light" ? styles.light_modal_confirm_label : styles.dark_modal_confirm_label;
-  const modal_cancel_label = colorScheme === "light" ? styles.light_modal_cancel_label : styles.dark_modal_cancel_label;
+  const modal_container =
+    colorScheme === "light"
+      ? styles.light_modal_container
+      : styles.dark_modal_container;
+  const modal_label =
+    colorScheme === "light"
+      ? styles.light_modal_label
+      : styles.dark_modal_label;
+  const modal_confirm =
+    colorScheme === "light"
+      ? styles.light_modal_confirm
+      : styles.dark_modal_confirm;
+  const modal_cancel =
+    colorScheme === "light"
+      ? styles.light_modal_cancel
+      : styles.dark_modal_cancel;
+  const modal_confirm_label =
+    colorScheme === "light"
+      ? styles.light_modal_confirm_label
+      : styles.dark_modal_confirm_label;
+  const modal_cancel_label =
+    colorScheme === "light"
+      ? styles.light_modal_cancel_label
+      : styles.dark_modal_cancel_label;
 
-  const {
-    group,
-    modal_buttons,
-  } = styles;
+  const { group, modal_buttons } = styles;
 
   return (
     <ScrollView style={container}>
@@ -104,7 +133,7 @@ const ViewItem = (props: any) => {
         style={button}
       >
         <Text style={label}>Edit</Text>
-      </TouchableOpacity>
+     </TouchableOpacity>
       <View style={{ padding: 5 }} />
 
       <TouchableOpacity
@@ -151,12 +180,12 @@ const styles = StyleSheet.create({
   light_heading: {
     fontSize: 18,
     textAlign: "center",
-    color: "#000"
+    color: "#000",
   },
   dark_heading: {
     fontSize: 18,
     textAlign: "center",
-    color: "#f8f8f8"
+    color: "#f8f8f8",
   },
   group: {
     paddingHorizontal: 20,
@@ -166,23 +195,23 @@ const styles = StyleSheet.create({
   },
   light_value: {
     fontSize: 16,
-    color: "#000"
+    color: "#000",
   },
   dark_value: {
     fontSize: 16,
-    color: "#f8f8f8"
+    color: "#f8f8f8",
   },
   light_description: {
     fontSize: 16,
     textAlign: "center",
     width: "50%",
-    color: "#000"
+    color: "#000",
   },
   dark_description: {
     fontSize: 16,
     textAlign: "center",
     width: "50%",
-    color: "#f8f8f8"
+    color: "#f8f8f8",
   },
   light_button: {
     borderColor: "#3C6074",
@@ -246,13 +275,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     padding: 10,
-    color: "#000"
+    color: "#000",
   },
   dark_modal_label: {
     textAlign: "center",
     fontSize: 18,
     padding: 10,
-    color: "#f8f8f8"
+    color: "#f8f8f8",
   },
   modal_buttons: {
     flexDirection: "row",
